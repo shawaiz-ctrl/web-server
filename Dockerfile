@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 
 # Install only production dependencies (layer is cached unless package files change)
 COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 COPY src ./src
 

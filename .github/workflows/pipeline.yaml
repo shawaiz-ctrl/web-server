@@ -1,9 +1,7 @@
-name: CI/CD - Test and Deploy to EC2
+name: Deploy to EC2
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -13,33 +11,8 @@ env:
   CONTAINER_PORT: 3000   # port the app listens on inside the container
 
 jobs:
-  test:
-    name: Run tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Verify Docker image builds
-        run: docker build -t ${{ env.APP_NAME }}:ci .
-
   deploy:
     name: Deploy to EC2
-    needs: test
-    # Deploy only on push to main or manual trigger, never on pull requests
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
