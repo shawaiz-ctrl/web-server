@@ -3,8 +3,7 @@ FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Install only production dependencies (layer is cached unless package files change)
-COPY package*.json ./
+COPY src ./src
 RUN npm install --omit=dev && npm cache clean --force
 
 COPY src ./src
