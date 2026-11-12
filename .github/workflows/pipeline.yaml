@@ -44,6 +44,15 @@ jobs:
             # Remove the temporary token from the saved remote URL
             git remote set-url origin "https://github.com/${{ github.repository }}.git"
 
+            echo ">> Files in repo root:"
+            ls -la
+            for f in Dockerfile package.json src; do
+              if [ ! -e "$f" ]; then
+                echo "!! '$f' not found at the repo root. Dockerfile, package.json and src/ must sit at the top level of the repo."
+                exit 1
+              fi
+            done
+
             # Step 2: Build the Docker image
             echo ">> Building image $APP_NAME:$TAG"
             docker build \
