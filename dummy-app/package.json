@@ -1,0 +1,18 @@
+{
+  "name": "dummy-app",
+  "version": "1.0.0",
+  "description": "Dummy Express app for testing GitHub Actions -> EC2 Docker deployments",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --ci --coverage"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
