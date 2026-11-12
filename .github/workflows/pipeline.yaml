@@ -38,12 +38,7 @@ jobs:
   deploy:
     name: Deploy to EC2
     needs: test
-    # Deploy only on push to main or manual trigger, never on pull requests
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy-ec2
-      cancel-in-progress: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
